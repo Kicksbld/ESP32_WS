@@ -1,5 +1,69 @@
 # Guide rapide - Controle des LEDs ESP32
 
+## Installation
+
+### 1. Cloner le projet
+
+```bash
+git clone https://github.com/Kicksbld/ESP32_WS.git
+cd ESP32_WS
+```
+
+### 2. Installer Thonny
+
+Telecharger et installer Thonny : https://thonny.org/
+
+### 3. Configurer Thonny pour l'ESP32
+
+1. Brancher l'ESP32 en USB
+2. Ouvrir Thonny
+3. Menu **Run** > **Configure interpreter**
+4. Selectionner **MicroPython (ESP32)**
+5. Selectionner le port USB (ex: `/dev/tty.usbserial-0001` ou `COM3`)
+6. Cliquer **OK**
+
+### 4. Uploader les fichiers
+
+1. Dans Thonny, ouvrir chaque fichier `.py` du projet
+2. Menu **File** > **Save as...**
+3. Choisir **MicroPython device**
+4. Garder le meme nom de fichier
+
+Fichiers a uploader :
+- `boot.py`
+- `main.py`
+- `sensor.py`
+- `ochestrator.py`
+- `Message.py`
+- `wsclient.py`
+- `ledstrip.py`
+- `button.py`
+- `joystick.py`
+- `lightSensor.py`
+- `rfid.py`
+
+### 5. Configurer le WiFi
+
+Modifier `boot.py` ligne 23 avec vos identifiants :
+
+```python
+wifi_connect("NOM_WIFI", "MOT_DE_PASSE")
+```
+
+### 6. Configurer le serveur WebSocket
+
+Modifier `main.py` ligne 74 avec l'IP du serveur :
+
+```python
+ws = WSClient("ws://VOTRE_IP:9000", ...)
+```
+
+### 7. Lancer
+
+Appuyer sur le bouton **RST** de l'ESP32 ou cliquer sur **Run** dans Thonny.
+
+---
+
 ## Architecture
 
 ```
