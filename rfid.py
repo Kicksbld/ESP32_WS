@@ -18,7 +18,7 @@ class RFIDWirings:
             pinSCK=18,
             pinMOSI=23,
             pinMISO=19,
-            pinRST=22
+            pinRST=27
         )
 
 
@@ -30,10 +30,17 @@ class RFIDState(SensorState):
     def __str__(self):
         return "Card: {}".format("Yes" if self.detected else "No")
 
+    def to_json(self):
+        return {
+            "detected": self.detected
+        }
+
 
 class RFID(Sensor):
 
-    def __init__(self, wiring: RFIDWirings):
+    def __init__(self, wiring: RFIDWirings, on_change=None):
+        self.state = RFIDState()
+        self.on_change = on_change
         self.rst = Pin(wiring.pinRST, Pin.OUT)
         self.rst.value(1)
 
@@ -87,4 +94,10 @@ class RFID(Sensor):
             i -= 1
 
         detected = (self._read(0x06) & 0x1B) == 0x00 and i > 0
-        return RFIDState(detected)
+        new_state = RFIDState(detected)
+
+        if self.on_change and new_state.detected != self.state.detected:
+            self.on_change(self, new_state)
+
+        self.state = new_state
+        return self.state

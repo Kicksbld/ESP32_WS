@@ -2,10 +2,10 @@
   "message_type": {
     "ENVOI": ["IMAGE", "AUDIO", "TEXT", "SENSOR"],
     "RECEPTION": ["IMAGE", "AUDIO", "TEXT", "SENSOR"],
-    "OTHER": ["DECLARATION", "SYS_MESSAGE", "WARNING"]
+    "OTHER": ["DECLARATION", "DECLARATION_SENSOR", "SYS_MESSAGE", "WARNING"]
   },
   "sensor_id": {
-    "enum": ["LIGHT", "BUTTON", "JOYSTICK", "TEMPERATURE", "RFID"]
+    "enum": ["LIGHT", "BUTTON", "JOYSTICK", "TEMPERATURE", "RFID", "ACCELEROMETER", "ULTRASONIC", "LED"]
   },
   "message_schema": {
     "type": "object",
@@ -38,8 +38,7 @@
     "JOYSTICK": {
       "type": "object",
       "properties": {
-        "x": { "type": "integer", "min": 0, "max": 4095 },
-        "y": { "type": "integer", "min": 0, "max": 4095 },
+        "direction": { "type": "string", "enum": ["CENTER", "UP", "DOWN", "LEFT", "RIGHT", "UP_LEFT", "UP_RIGHT", "DOWN_LEFT", "DOWN_RIGHT"] },
         "button": { "type": "boolean" }
       }
     },
@@ -62,6 +61,26 @@
       "properties": {
         "detected": { "type": "boolean" },
         "uud": { "type": "string", "description": "ID du tag si détecté" }
+      }
+    },
+    "ACCELEROMETER": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer" },
+        "z": { "type": "integer" }
+      }
+    },
+    "ULTRASONIC": {
+      "type": "object",
+      "properties": {
+        "distance_cm": { "type": "number", "min": 0, "description": "Distance en cm" }
+      }
+    },
+    "LED": {
+      "type": "object",
+      "properties": {
+        "led_count": { "type": "integer", "min": 0, "max": 27, "description": "Nombre de LEDs a allumer" }
       }
     }
   }

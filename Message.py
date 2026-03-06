@@ -29,9 +29,12 @@ class SensorId:
     TEMPERATURE = "TEMPERATURE"
     RFID = "RFID"
     LED="LED"
+    ACCELEROMETER = "ACCELEROMETER"
+    ULTRASONIC = "ULTRASONIC"
 
 class MessageType:
     DECLARATION = "DECLARATION"
+    DECLARATION_SENSOR = "DECLARATION_SENSOR"
     ENVOI = ENVOI_TYPE
     RECEPTION = RECEPTION_TYPE
     WARNING = "WARNING"
@@ -77,6 +80,10 @@ class Message:
     @staticmethod
     def ping():
         return Message(MessageType.SYS_MESSAGE, "ping", "SERVER", "")
+
+    @staticmethod
+    def declare_sensor(emitter, sensor_id):
+        return Message(MessageType.DECLARATION_SENSOR, {"sensor_id": sensor_id, "status": "connected"}, emitter)
 
     @staticmethod
     def sensor(emitter, sensor_id, value, receiver):

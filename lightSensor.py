@@ -9,7 +9,7 @@ class LightSensorWirings:
 
     @staticmethod
     def default():
-        return LightSensorWirings(pinData=34)
+        return LightSensorWirings(pinData=14)
 
 
 class LightSensorState(SensorState):
