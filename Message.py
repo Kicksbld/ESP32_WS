@@ -83,7 +83,7 @@ class Message:
 
     @staticmethod
     def declare_sensor(emitter, sensor_id):
-        return Message(MessageType.DECLARATION_SENSOR, {"sensor_id": sensor_id, "status": "connected"}, emitter)
+        return Message(MessageType.DECLARATION_SENSOR, {"sensor_id": sensor_id, "status": "connected"}, emitter, "ALL")
 
     @staticmethod
     def sensor(emitter, sensor_id, value, receiver):
